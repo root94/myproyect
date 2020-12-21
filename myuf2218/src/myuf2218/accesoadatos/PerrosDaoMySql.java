@@ -20,30 +20,17 @@ public class PerrosDaoMySql implements Dao<Perro> {
 	public static PerrosDaoMySql getDao() {
 		return INSTANCIA;
 	}
-
-	private static final String URL = "jdbc:mysql://localhost:3306/perros_bdd?characterEncoding=UTF-8";
-	private static final String USER = "debian-sys-maint";
-	private static final String PASS = "o8lAkaNtX91xMUcV";
-
 	private static final String SQL_SELECT = "SELECT * FROM perros p JOIN razas r ON p.raza = r.id";
 	private static final String SQL_SELECT_ID = "SELECT * FROM perros p JOIN razas r ON p.raza = r.id WHERE p.id = ?";
 	private static final String SQL_INSERT = "INSERT INTO perros (raza, nombre, adoptado) VALUES (?, ?, ?)";
 	private static final String SQL_UPDATE = "UPDATE perros SET raza = ?, nombre = ? WHERE id = ?";
 	private static final String SQL_DELETE = "DELETE FROM perros WHERE id = ?";
-
-	static {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			throw new AccesoDatosException("No se ha podido cargar el driver de MySQL", e);
-		}
-	}
 	
 
 	@Override
 	public Iterable<Perro> obtenerTodos() {
 
-		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
+		try (Connection con = Conexion.getConexion();
 				Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(SQL_SELECT);) {
 
@@ -77,7 +64,7 @@ public class PerrosDaoMySql implements Dao<Perro> {
 
 	@Override
 	public Perro obtenerPorId(Long id) {
-		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
+		try (Connection con = Conexion.getConexion();
 				PreparedStatement ps = con.prepareStatement(SQL_SELECT_ID);) {
 
 			ps.setLong(1, id);
@@ -108,7 +95,7 @@ public class PerrosDaoMySql implements Dao<Perro> {
 
 	@Override
 	public void insertar(Perro perro) {
-		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
+		try (Connection con = Conexion.getConexion();
 				PreparedStatement ps = con.prepareStatement(SQL_INSERT);) {
 			ps.setLong(1, perro.getRaza().getId());
 			ps.setString(2, perro.getNombre());
@@ -131,7 +118,7 @@ public class PerrosDaoMySql implements Dao<Perro> {
 
 	@Override
 	public void modificar(Perro perro) {
-		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
+		try (Connection con = Conexion.getConexion();
 				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);) {
 			// UPDATE perros SET raza = ?, nombre = ? WHERE id = ?
 
@@ -155,7 +142,7 @@ public class PerrosDaoMySql implements Dao<Perro> {
 
 	@Override
 	public void borrar(Long id) {
-		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
+		try (Connection con = Conexion.getConexion();
 				PreparedStatement ps = con.prepareStatement(SQL_DELETE);) {
 
 			ps.setLong(1, id);

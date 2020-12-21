@@ -2,19 +2,50 @@ package myuf2218.modelos;
 
 public class Usuario {
 	private Long id;
-	private String email, password;
+	private String email, password, nombre;
 	private boolean admin;
+	private Rol rol;
 	
-	public Usuario(Long id, String email, String password, boolean admin) {
+	public Usuario(Long id, String email, String password, String nombre, boolean admin) {
 		setId(id);
 		setEmail(email);
 		setPassword(password);
 		setAdmin(admin);
+		setNombre(nombre);
 		
 	}
-	
-	
-	
+	public Usuario(Long id, String nombre, String email, String password, Rol rol) {
+		setId(id);
+		setNombre(nombre);
+		setEmail(email);
+		setPassword(password);
+		setRol(rol);
+		
+	}
+
+	public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
+	}
+
+
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+
 	public Long getId() {
 		return id;
 	}

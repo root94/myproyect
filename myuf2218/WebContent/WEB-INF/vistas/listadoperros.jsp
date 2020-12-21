@@ -10,7 +10,7 @@ ${alertamensaje}
 			<th>Nombre</th>
 			<c:choose>
 
-				<c:when test="${usuario.admin}">
+				<c:when test="${usuario.rol.id == 1}">
            			 <th>Fecha de adopción</th>
         		 </c:when>
 
@@ -28,14 +28,14 @@ ${alertamensaje}
 	</thead>
 	<tbody>
 		<c:forEach items="${perros}" var="perro">
-			<c:if test="${usuario.admin || !usuario.admin && !perro.adoptado}">
+			<c:if test="${usuario.rol.id == 1 || usuario.rol.id !=1 && !perro.adoptado}">
 				<tr>
 					<th>${perro.id}</th>
 					<td>${perro.raza.nombre}</td>
 					<td>${perro.nombre}</td>
 					<c:choose>
 
-				<c:when test="${usuario.admin}">
+				<c:when test="${usuario.rol.id == 1}">
            			 <td><c:if test="${perro.adoptado}">				
 								${perro.fechaAdopcion}
 						</c:if> <c:if test="${!perro.adoptado}">				
@@ -57,7 +57,7 @@ ${alertamensaje}
 								- NO ADOPTADO
 						</c:if></td>
 					</c:if>-->
-					<td><c:if test="${usuario.admin }">
+					<td><c:if test="${usuario.rol.id == 1 }">
 
 							<a class="btn btn-primary" href="admin/guardar?id=${perro.id}">Editar</a>
 
@@ -65,12 +65,12 @@ ${alertamensaje}
 							<a class="btn btn-danger"
 								onclick="return confirm('¿Estás seguro?')"
 								href="admin/borrar?id=${perro.id}">Borrar</a>
-						</c:if> <c:if test="${!usuario.admin }">
+						</c:if> <c:if test="${usuario.rol.id != 1 }">
 
 							<a class="btn btn-danger"
 								onclick="return confirm('¿Estás seguro?')"
 								href="adoptar?id=${perro.id}">Adoptar</a>
-						</c:if></td>
+						</c:if></td>admin
 				</tr>
 			</c:if>
 		</c:forEach>

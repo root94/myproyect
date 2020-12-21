@@ -8,8 +8,8 @@ public class UsuariosDao implements Dao<Usuario>{
 private TreeMap<Long, Usuario> usuarios = new TreeMap<>();
 	
 	private UsuariosDao() {
-		usuarios.put(1L, new Usuario(1L, "ruth@ruth.com", "ruth", true));
-		usuarios.put(2L, new Usuario(2L, "pepe@pepe.com","pepe" ,false));
+		usuarios.put(1L, new Usuario(1L, "ruth@ruth.com", "ruth", "ruth",true));
+		usuarios.put(2L, new Usuario(2L, "pepe@pepe.com","pepe" ,"ruth",false));
 	}
 	
 	private static UsuariosDao dao = new UsuariosDao();
