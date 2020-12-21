@@ -150,7 +150,7 @@ public class PerrosDaoMySql implements Dao<Perro> {
 			int numeroRegistrosBorrados = ps.executeUpdate();
 
 			if (numeroRegistrosBorrados == 0) {
-				throw new AccesoDatosException("Se ha intentado borrar un id inexistente");
+				throw new AccesoDatosException("Se ha intentado borrar un id que no existe");
 			} else if (numeroRegistrosBorrados > 1) {
 				throw new AccesoDatosException("SE HA BORRADO MÁS DE UN REGISTRO");
 			}
